@@ -26,3 +26,5 @@ Thumbs.db
 npm-debug.log*
 pnpm-debug.log*
 tsconfig.tsbuildinfo
+
+plan.md

@@ -40,6 +40,44 @@ pnpm dev
 apm audit                # warn-mode
 ```
 
+## API reference
+
+| Method | Path | Description |
+|--------|------|-------------|
+| `GET` | `/api/products` | List products (`limit`, `offset` query params). |
+| `POST` | `/api/cart/apply-promo` | Apply a promo code to a cart and return totals. |
+
+### `POST /api/cart/apply-promo`
+
+**Request body** (JSON):
+
+```json
+{
+  "items": [
+    { "productId": "string", "quantity": 1, "unitPriceCents": 1000 }
+  ],
+  "code": "WELCOME10",
+  "region": "GB"
+}
+```
+
+**Response** `200` (JSON):
+
+```json
+{
+  "subtotalCents": 2000,
+  "discountCents": 200,
+  "taxCents": 360,
+  "totalCents": 2160
+}
+```
+
+Returns `400` with `{ "error": "invalid_request" }` for schema violations or `{ "error": "invalid_json" }` for malformed bodies.
+
+Supported promo codes: `WELCOME10` (10 %), `VIP25` (25 %, requires subtotal ≥ £100), `FREESHIP` (shipping only, no price discount).
+
+---
+
 ## See also
 
 - [`zava-agent-config`](https://github.com/hackathon-brown-eagle-55/zava-agent-config) — the central agentic primitives package

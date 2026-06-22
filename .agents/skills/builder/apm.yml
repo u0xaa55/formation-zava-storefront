@@ -1,0 +1,14 @@
+name: builder
+version: 0.1.0
+description: >-
+  Implements a feature brief or review findings as commits on a branch,
+  then opens or updates a PR. Composes Zava's security, architecture,
+  and documentation guidelines into every change.
+author: Zava Engineering
+license: MIT
+targets:
+  - copilot
+keywords:
+  - builder
+  - feature-implementation
+  - pr-automation

@@ -1,0 +1,14 @@
+name: panel-review
+version: 0.1.0
+description: >-
+  Pre-push panel review of staged changes by architect and security
+  personas. Surfaces findings as inline comments before a PR is opened.
+author: Zava Engineering
+license: MIT
+targets:
+  - copilot
+keywords:
+  - panel-review
+  - pre-push
+  - security-review
+  - architecture-review

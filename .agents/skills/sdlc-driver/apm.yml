@@ -1,0 +1,28 @@
+name: sdlc-driver
+version: 0.1.0
+description: >-
+  Orchestrates a bounded build-and-review loop on a PR branch.
+  Composes builder (BUILD phase) and panel-review (REVIEW phase):
+  runs deterministic checks first, routes failures to builder, then
+  invokes panel-review when checks are green, and hands any actionable
+  findings back to builder — repeating until clean or the pass cap is hit.
+author: Zava Engineering
+license: MIT
+targets:
+  - copilot
+keywords:
+  - sdlc
+  - build-review-loop
+  - ci
+  - pr-automation
+
+dependencies:
+  apm:
+    # builder — BUILD phase. Local sibling skill.
+    # apm install will resolve the local path and make the skill available.
+    - path:../builder
+
+    # panel-review — REVIEW phase. Local sibling skill.
+    - path:../panel-review
+
+includes: auto
