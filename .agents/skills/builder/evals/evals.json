@@ -1,0 +1,84 @@
+{
+  "skill": "builder",
+  "version": "1.0.0",
+  "evals": [
+    {
+      "id": "content-eval-01",
+      "type": "content",
+      "description": "Feature brief produces a branch, edits, passing checks, and a correctly-structured PR",
+      "prompt": "Implement a search-as-you-type debounce on the product search field. The current implementation fires a request on every keystroke. Add a 300ms debounce using the existing lib/search.ts module.",
+      "with_skill_expected": [
+        "Creates branch feat/search-debounce or similar",
+        "Reads lib/search.ts before editing",
+        "Runs npm run lint and npm test before offering to open PR",
+        "PR description includes Summary, Work item, Changes table, Checks checklist, Out of scope section",
+        "Applies secure-coding-base rules (no string concatenation into queries, no new secrets)"
+      ],
+      "without_skill_expected": [
+        "May edit the file inline without branching",
+        "No lint/test gate",
+        "No PR description template",
+        "No scope cap applied"
+      ]
+    },
+    {
+      "id": "content-eval-02",
+      "type": "content",
+      "description": "Review findings produce a fix branch targeting exactly the named issues",
+      "prompt": "Apply these review findings: (1) lib/cart.ts addItem — the DB query uses string concatenation instead of parameterized queries. Fix it. (2) removeItem is missing a JSDoc comment. Add one.",
+      "with_skill_expected": [
+        "Creates branch fix/review-<date>",
+        "Reads lib/cart.ts before editing",
+        "Parameterizes the query (not string concatenation) — secure-coding-base rule §2",
+        "Adds TSDoc comment to removeItem — docs-style-guide rule applied",
+        "Runs npm run lint and npm test",
+        "Human checkpoint before push",
+        "PR description references both findings and has correct Changes table"
+      ],
+      "without_skill_expected": [
+        "May fix inline without branching",
+        "No lint/test gate enforced",
+        "No scope-cap discipline"
+      ]
+    }
+  ],
+  "trigger_evals": {
+    "description": "~20 queries split 60/40 train/val. Validation split is the ship gate.",
+    "should_trigger": {
+      "train": [
+        "Implement the new product-recommendations widget described in this brief.",
+        "Build this feature: add a wishlist button to the product card.",
+        "Apply the reviewer's feedback on PR #17.",
+        "Make these code-review changes and reopen the PR.",
+        "Open a PR for adding pagination to the orders endpoint.",
+        "Fix the two findings from the security review.",
+        "Take this Jira ticket and implement it.",
+        "The PR feedback says I need to add input validation to the search route. Do it."
+      ],
+      "validation": [
+        "Implement the cart checkout and push a PR.",
+        "Act on these four review comments.",
+        "Create a branch and open a PR for the cart discount feature.",
+        "My reviewer asked me to add tests for the orders module — please add them and update the PR."
+      ]
+    },
+    "should_not_trigger": {
+      "train": [
+        "Review my staged changes before I push.",
+        "Design the architecture for the new recommendation engine.",
+        "Turn this postmortem into a PR.",
+        "Explain how debouncing works in JavaScript.",
+        "What is the difference between feat and fix commit types?",
+        "Check if the CI pipeline is green.",
+        "How should I structure the new search module?",
+        "Deploy the current main branch to staging."
+      ],
+      "validation": [
+        "Write me a unit test for the debounce function.",
+        "Update the README with the new API docs.",
+        "Run the linter and tell me what is failing.",
+        "Summarize what changed in this diff."
+      ]
+    }
+  }
+}
